@@ -1,0 +1,27 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Add Sports Team",
+        "description": "Search for a team.",
+        "data": {
+          "team_search": "Team name"
+        }
+      },
+      "select_team": {
+        "title": "Select Team",
+        "description": "Choose the team to add.",
+        "data": {
+          "team_id": "Team"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Unable to connect to TheSportsDB.",
+      "team_not_found": "No teams were found."
+    },
+    "abort": {
+      "already_configured": "This team is already configured."
+    }
+  }
+}
