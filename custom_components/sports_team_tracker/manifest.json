@@ -2,8 +2,8 @@
   "domain": "sports_team_tracker",
   "name": "My Team",
   "version": "0.2.0",
-  "documentation": "https://github.com/Mkhimer69/ha-sports-team-tracker",
-  "issue_tracker": "https://github.com/Mkhimer69/ha-sports-team-tracker/issues",
+  "documentation": "https://github.com/Mkhimer69/My-Team/",
+  "issue_tracker": "https://github.com/Mkhimer69/My-Team/issues",
   "codeowners": [],
   "config_flow": true,
   "iot_class": "cloud_polling"
