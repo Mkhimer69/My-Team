@@ -311,6 +311,3 @@ If **My Team** is useful in your Home Assistant setup, consider giving the proje
   Your teams. Your matches. Your Home Assistant.
 </div>
 
-⚽ My Team
-
-Your teams. Your matches. Your Home Assistant.
