@@ -12,6 +12,8 @@ Powered by [TheSportsDB](https://www.thesportsdb.com/) · Native HA entities · 
 ![Stars](https://img.shields.io/github/stars/Mkhimer69/My-Team?style=flat)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
+<img src="assets/matchday-cards.png" alt="My Team match-day dashboard" width="480">
+
 </div>
 
 ---
@@ -86,9 +88,84 @@ State: `2026-09-03T17:00:00+00:00` — device class **timestamp**, perfect for
 time-based triggers (`trigger: time / at: sensor.al_ahly_match_time`), countdowns
 and match-day automations.
 
-## 🎨 Dashboard Example
+## 🎨 Match-Day Cards (Mushroom + card-mod)
 
-A single Markdown card renders your whole match day with league & team badges:
+The screenshot above is a **vertical stack of Mushroom template cards** — one per
+team, color-coded, with a live countdown that flips to **🔴 LIVE NOW** at kickoff.
+
+**Prerequisites** (HACS → **Frontend**):
+- [Mushroom](https://github.com/piitaya/lovelace-mushroom)
+- [card-mod](https://github.com/thomasloven/lovelace-card-mod)
+
+**How it works:**
+- `picture:` pulls the **league badge** from the sensor attributes
+- `primary:` = `home_team vs away_team`
+- `secondary:` computes `match_time − now()` → renders **Today / Tomorrow / weekday**,
+  the kickoff hour, and a live `Xd Xh Xm` countdown; **negative diff = LIVE**
+- `card_mod` adds the colored left border — pick one accent color per team
+
+**Template** (duplicate the block per team — change the entity and accent color):
+
+```yaml
+type: vertical-stack
+cards:
+  - type: custom:mushroom-template-card
+    picture: "{{ state_attr('sensor.zamalek_next_match_2','league_badge') or '' }}"
+    primary: >-
+      {{ state_attr('sensor.zamalek_next_match_2','home_team') or '—' }} vs
+      {{ state_attr('sensor.zamalek_next_match_2','away_team') or '' }}
+    secondary: >-
+      {% set d = state_attr('sensor.zamalek_next_match_2','date') %}
+      {% set t = state_attr('sensor.zamalek_next_match_2','local_time') %}
+      {% set ts = as_timestamp((d or '1970-01-01') ~ 'T' ~ (t or '00:00:00'), 0) %}
+      {% set diff = ts - as_timestamp(now()) %}
+      {% if states('sensor.zamalek_next_match_2') in ['unknown','unavailable'] %}
+        no data
+      {% elif diff < 0 %}
+        🔴 LIVE NOW
+      {% else %}
+        {{ 'Today' if diff < 86400 else 'Tomorrow' if diff < 172800
+           else ts | timestamp_custom('%a %d %b') }} · {{ (t or '')[:5] }}
+        · in {{ (diff // 86400) | int }}d {{ ((diff % 86400) // 3600) | int }}h
+        {{ ((diff % 3600) // 60) | int }}m
+      {% endif %}
+    tap_action:
+      action: more-info
+      entity: sensor.zamalek_next_match_2
+    card_mod:
+      style: |
+        ha-card { border-left: 3px solid #b71c1c; border-radius: 12px; }
+
+  - type: custom:mushroom-template-card
+    picture: "{{ state_attr('sensor.barcelona_next_match','league_badge') or '' }}"
+    primary: >-
+      {{ state_attr('sensor.barcelona_next_match','home_team') or '—' }} vs
+      {{ state_attr('sensor.barcelona_next_match','away_team') or '' }}
+    secondary: >-
+      {% set d = state_attr('sensor.barcelona_next_match','date') %}
+      {% set t = state_attr('sensor.barcelona_next_match','local_time') %}
+      {% set ts = as_timestamp((d or '1970-01-01') ~ 'T' ~ (t or '00:00:00'), 0) %}
+      {% set diff = ts - as_timestamp(now()) %}
+      {% if states('sensor.barcelona_next_match') in ['unknown','unavailable'] %}
+        no data
+      {% elif diff < 0 %}
+        🔴 LIVE NOW
+      {% else %}
+        {{ 'Today' if diff < 86400 else 'Tomorrow' if diff < 172800
+           else ts | timestamp_custom('%a %d %b') }} · {{ (t or '')[:5] }}
+        · in {{ (diff // 86400) | int }}d {{ ((diff % 86400) // 3600) | int }}h
+        {{ ((diff % 3600) // 60) | int }}m
+      {% endif %}
+    tap_action:
+      action: more-info
+      entity: sensor.barcelona_next_match
+    card_mod:
+      style: |
+        ha-card { border-left: 3px solid #1e88e5; border-radius: 12px; }
+```
+
+<details>
+<summary><b>🖥️ Alternative: pure Markdown card (no HACS frontend needed)</b></summary>
 
 ```yaml
 type: markdown
@@ -125,6 +202,7 @@ content: >
   {% endif %}
   {% endfor %}
 ```
+</details>
 
 ## 🤖 Automations
 
