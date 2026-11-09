@@ -1,0 +1,14 @@
+{
+  "domain": "sports_team_tracker",
+  "name": "My Team",
+  "version": "1.0.0",
+  "documentation": "https://github.com/Mkhimer69/My-Team/",
+  "issue_tracker": "https://github.com/Mkhimer69/My-Team/issues",
+  "codeowners": ["@Mkhimer69"],
+  "config_flow": true,
+  "integration_type": "service",
+  "iot_class": "cloud_polling",
+  "loggers": ["custom_components.sports_team_tracker"],
+  "dependencies": [],
+  "requirements": []
+}
