@@ -9,6 +9,7 @@ Powered by [TheSportsDB](https://www.thesportsdb.com/) · Native HA entities · 
 
 ![HACS Custom](https://img.shields.io/badge/HACS-Custom-41BDF5?logo=home-assistant&logoColor=white)
 ![Release](https://img.shields.io/github/v/release/Mkhimer69/My-Team)
+![Version](https://img.shields.io/badge/version-0.3.0-blue)
 ![Stars](https://img.shields.io/github/stars/Mkhimer69/My-Team?style=flat)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
