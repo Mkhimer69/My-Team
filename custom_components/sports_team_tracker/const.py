@@ -4,7 +4,7 @@ from __future__ import annotations
 
 DOMAIN = "sports_team_tracker"
 NAME = "My Team"
-VERSION = "1.1.0"
+VERSION = "0.4.0"
 
 # ── config keys ────────────────────────────────────────────────────────────────
 CONF_TEAM_ID = "team_id"
