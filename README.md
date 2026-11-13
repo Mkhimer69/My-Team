@@ -9,7 +9,7 @@ Powered by [TheSportsDB](https://www.thesportsdb.com/) · Native HA entities · 
 
 ![HACS Custom](https://img.shields.io/badge/HACS-Custom-41BDF5?logo=home-assistant&logoColor=white)
 ![Release](https://img.shields.io/github/v/release/Mkhimer69/My-Team)
-![Version](https://img.shields.io/badge/version-0.3.0-blue)
+![Version](https://img.shields.io/badge/version-1.1.0-blue)
 ![Stars](https://img.shields.io/github/stars/Mkhimer69/My-Team?style=flat)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
@@ -62,6 +62,39 @@ Copy the integration folder into your configuration directory, then restart:
 ```
 
 > `sports_team_tracker` is the internal HA domain — the user-facing name is **My Team**.
+
+## 🃏 Add the card
+
+My Team ships its own match card — **no Mushroom, no card-mod, no YAML template
+to copy.**
+
+1. Edit a dashboard → **Add card** → search **My Team Match**
+2. Pick that team's `Next match` sensor
+3. Save — badge, fixture, kickoff and countdown update themselves
+
+The integration serves the card at `/sports_team_tracker/sports-team-card.js`
+and registers it as a dashboard resource the first time it loads. On a
+YAML-mode dashboard, add that URL yourself as a **JavaScript module**
+(Settings → Dashboards → ⋮ → Resources).
+
+```yaml
+type: custom:sports-team-card
+entity: sensor.zamalek_next_match_2
+accent: "#43a047"      # optional left border colour
+show_venue: true       # optional
+```
+
+It shows the league badge, `Home vs Away`, **Today / Tomorrow / weekday · kickoff
+· in 2d 4h 12m**, and flips to **🔴 LIVE NOW** at kickoff. Tap opens the sensor.
+
+<details>
+<summary><b>Prefer the Mushroom version?</b></summary>
+
+The screenshot at the top is a stack of Mushroom template cards with card-mod.
+That still works — see [Match-Day Cards](#-match-day-cards-mushroom--card-mod) —
+but the shipped card needs neither frontend HACS install.
+
+</details>
 
 ## ⚙️ Configuration
 No YAML — full config flow. Enter a team name, pick it from the search results,
