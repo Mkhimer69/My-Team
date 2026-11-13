@@ -4,7 +4,7 @@ All notable changes to **My Team** are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/) and
 [Semantic Versioning](https://semver.org/).
 
-## [1.1.0] — 2026-11-13
+## [0.4.0] 
 
 ### Added
 - **A match card that ships with the integration** — `custom:sports-team-card`.
@@ -20,7 +20,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/) and
 - `manifest.json` reported `0.3.0` while `const.py` said `1.0.0`; both now carry
   the same version, so Home Assistant and HACS show one number.
 
-## [0.3.0] — 2026-11-09
+## [0.3.0]
 
 ### Fixed
 - **The integration stopped working because TheSportsDB permanently disabled the
